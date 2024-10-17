@@ -20,3 +20,19 @@ html {
 body {
   margin-bottom: 60px;
 }
+.login-icon {
+    position: relative;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+.login-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: #007bff;
+    transition : fill 0.3s ease ;
+}
+.login-icon svg:hover {
+    fill: #0056b3;
+}
