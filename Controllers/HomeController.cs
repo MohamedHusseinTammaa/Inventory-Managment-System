@@ -17,7 +17,6 @@ namespace Inventory_Managment_System.Controllers
         {
             return View();
         }
-
         public IActionResult Privacy()
         {
             return View();
