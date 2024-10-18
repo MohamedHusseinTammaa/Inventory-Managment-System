@@ -1,19 +1,25 @@
 using Inventory_Managment_System.Data;
+using Inventory_Managment_System.Models.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Inventory_Managment_System.Interfaces;
 
 namespace Inventory_Managment_System
 {
     public class Program
     {
-
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var connectionString = builder.Configuration.GetConnectionString("defaultConnection");
-            builder.Services.AddDbContext<InventoryDbContext>(options => options.UseSqlServer(connectionString));
-            builder.Services.AddScoped<InventoryDbContext>();
-            
+
             // Add services to the container.
+            var connectionString = builder.Configuration.GetConnectionString("defaultConnection");
+
+            // Register DbContext and Services here before building the app
+            builder.Services.AddDbContext<InventoryDbContext>(options =>
+                options.UseSqlServer(connectionString));
+
+            builder.Services.AddScoped<IProduct, productServices>();  // Register your service
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

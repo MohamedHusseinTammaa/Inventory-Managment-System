@@ -17,10 +17,10 @@ namespace Inventory_Managment_System.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.35")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Inventory_Managment_System.Models.Classes.Brand", b =>
                 {
@@ -28,7 +28,7 @@ namespace Inventory_Managment_System.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<string>("description")
                         .IsRequired()
@@ -49,7 +49,7 @@ namespace Inventory_Managment_System.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<string>("description")
                         .IsRequired()
@@ -70,7 +70,7 @@ namespace Inventory_Managment_System.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<string>("address")
                         .IsRequired()
@@ -95,7 +95,7 @@ namespace Inventory_Managment_System.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<DateTime>("orderDate")
                         .HasColumnType("datetime2");
@@ -114,7 +114,7 @@ namespace Inventory_Managment_System.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<int>("orderId")
                         .HasColumnType("int");
@@ -139,7 +139,7 @@ namespace Inventory_Managment_System.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<int>("categoryId")
                         .HasColumnType("int");
@@ -172,35 +172,13 @@ namespace Inventory_Managment_System.Migrations
                     b.ToTable("products");
                 });
 
-            modelBuilder.Entity("Inventory_Managment_System.Models.Classes.purchase", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
-
-                    b.Property<DateTime>("purchaseDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("supplierId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("totalCost")
-                        .HasColumnType("float");
-
-                    b.HasKey("id");
-
-                    b.ToTable("purchases");
-                });
-
             modelBuilder.Entity("Inventory_Managment_System.Models.Classes.PurchaseDetails", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<int>("price")
                         .HasColumnType("int");
@@ -225,7 +203,7 @@ namespace Inventory_Managment_System.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<string>("address")
                         .IsRequired()
@@ -242,6 +220,28 @@ namespace Inventory_Managment_System.Migrations
                     b.HasKey("id");
 
                     b.ToTable("suppliers");
+                });
+
+            modelBuilder.Entity("Inventory_Managment_System.Models.Classes.purchase", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime>("purchaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("supplierId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("totalCost")
+                        .HasColumnType("float");
+
+                    b.HasKey("id");
+
+                    b.ToTable("purchases");
                 });
 #pragma warning restore 612, 618
         }

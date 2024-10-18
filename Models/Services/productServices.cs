@@ -25,9 +25,9 @@ namespace Inventory_Managment_System.Models.Services
 
         public List<Product> getAllProducts()
         {
-            var products = _context.products.ToList();
+            List<Product> productsList = _context.products.ToList();
             
-            return products;
+            return productsList;
         }
     }
 }
