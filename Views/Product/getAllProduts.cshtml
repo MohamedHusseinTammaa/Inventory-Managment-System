@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "getAllProduts";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>getAllProduts</h1>
@@ -23,19 +22,25 @@
                 @Html.DisplayNameFor(model => model.price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.priceFraction)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.stockQuantity)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.minimunStock)
+                @Html.DisplayNameFor(model => model.minimumStockLevel)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.categoryId)
+                @Html.DisplayNameFor(model => model.createdAt)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.supplierId)
+                @Html.DisplayNameFor(model => model.UpdatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.supplier)
             </th>
             <th></th>
         </tr>
@@ -53,19 +58,25 @@
                 @Html.DisplayFor(modelItem => item.price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.priceFraction)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.stockQuantity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.minimunStock)
+                @Html.DisplayFor(modelItem => item.minimumStockLevel)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.categoryId)
+                @Html.DisplayFor(modelItem => item.createdAt)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.supplierId)
+                @Html.DisplayFor(modelItem => item.UpdatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.category.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.brand.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.supplier.id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |

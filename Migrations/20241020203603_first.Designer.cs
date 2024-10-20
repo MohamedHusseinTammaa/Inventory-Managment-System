@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Inventory_Managment_System.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20241018120306_adding")]
-    partial class adding
+    [Migration("20241020203603_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,9 @@ namespace Inventory_Managment_System.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<DateTime>("createdAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -40,6 +43,9 @@ namespace Inventory_Managment_System.Migrations
                     b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("updatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("id");
 
@@ -54,6 +60,9 @@ namespace Inventory_Managment_System.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<DateTime>("createdAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -61,6 +70,12 @@ namespace Inventory_Managment_System.Migrations
                     b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("parentCategory")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("updatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("id");
 
@@ -83,9 +98,26 @@ namespace Inventory_Managment_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("createdAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("deliveryDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("orderStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("paymentStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("updatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("id");
 
@@ -119,6 +151,12 @@ namespace Inventory_Managment_System.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<decimal>("discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("finalPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("orderId")
                         .HasColumnType("int");
 
@@ -130,6 +168,9 @@ namespace Inventory_Managment_System.Migrations
 
                     b.Property<int>("quantity")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("tax")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("id");
 
@@ -144,25 +185,31 @@ namespace Inventory_Managment_System.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("brandId")
+                        .HasColumnType("int");
+
                     b.Property<int>("categoryId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("createdAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("minimunStock")
+                    b.Property<int>("minimumStockLevel")
                         .HasColumnType("int");
 
                     b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("priceFraction")
-                        .HasColumnType("int");
+                    b.Property<double>("price")
+                        .HasColumnType("float");
 
                     b.Property<int>("stockQuantity")
                         .HasColumnType("int");
@@ -172,7 +219,50 @@ namespace Inventory_Managment_System.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("brandId");
+
+                    b.HasIndex("categoryId");
+
+                    b.HasIndex("supplierId");
+
                     b.ToTable("products");
+                });
+
+            modelBuilder.Entity("Inventory_Managment_System.Models.Classes.Purchase", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<DateTime>("createdAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("deliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("paymentMethod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("purchaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("supplierId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("totalCost")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("updatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("supplierId");
+
+                    b.ToTable("purchases");
                 });
 
             modelBuilder.Entity("Inventory_Managment_System.Models.Classes.PurchaseDetails", b =>
@@ -183,8 +273,14 @@ namespace Inventory_Managment_System.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int>("price")
-                        .HasColumnType("int");
+                    b.Property<double>("costPrice")
+                        .HasColumnType("float");
+
+                    b.Property<decimal>("discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("finalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("productId")
                         .HasColumnType("int");
@@ -195,7 +291,14 @@ namespace Inventory_Managment_System.Migrations
                     b.Property<int>("quantity")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("tax")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("id");
+
+                    b.HasIndex("productId");
+
+                    b.HasIndex("purchaseId");
 
                     b.ToTable("PurchaseDetails");
                 });
@@ -212,6 +315,13 @@ namespace Inventory_Managment_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("createdAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -220,31 +330,74 @@ namespace Inventory_Managment_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("updatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("id");
 
                     b.ToTable("suppliers");
                 });
 
-            modelBuilder.Entity("Inventory_Managment_System.Models.Classes.purchase", b =>
+            modelBuilder.Entity("Inventory_Managment_System.Models.Classes.Product", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasOne("Inventory_Managment_System.Models.Classes.Brand", "brand")
+                        .WithMany()
+                        .HasForeignKey("brandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    b.HasOne("Inventory_Managment_System.Models.Classes.Category", "category")
+                        .WithMany()
+                        .HasForeignKey("categoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<DateTime>("purchaseDate")
-                        .HasColumnType("datetime2");
+                    b.HasOne("Inventory_Managment_System.Models.Classes.Supplier", "supplier")
+                        .WithMany()
+                        .HasForeignKey("supplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("supplierId")
-                        .HasColumnType("int");
+                    b.Navigation("brand");
 
-                    b.Property<double>("totalCost")
-                        .HasColumnType("float");
+                    b.Navigation("category");
 
-                    b.HasKey("id");
+                    b.Navigation("supplier");
+                });
 
-                    b.ToTable("purchases");
+            modelBuilder.Entity("Inventory_Managment_System.Models.Classes.Purchase", b =>
+                {
+                    b.HasOne("Inventory_Managment_System.Models.Classes.Supplier", "supplier")
+                        .WithMany()
+                        .HasForeignKey("supplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("supplier");
+                });
+
+            modelBuilder.Entity("Inventory_Managment_System.Models.Classes.PurchaseDetails", b =>
+                {
+                    b.HasOne("Inventory_Managment_System.Models.Classes.Product", "product")
+                        .WithMany()
+                        .HasForeignKey("productId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Inventory_Managment_System.Models.Classes.Purchase", "purchase")
+                        .WithMany("PurchaseDetails")
+                        .HasForeignKey("purchaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("product");
+
+                    b.Navigation("purchase");
+                });
+
+            modelBuilder.Entity("Inventory_Managment_System.Models.Classes.Purchase", b =>
+                {
+                    b.Navigation("PurchaseDetails");
                 });
 #pragma warning restore 612, 618
         }
