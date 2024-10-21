@@ -4,6 +4,7 @@ namespace Inventory_Managment_System.Interfaces
 {
     public interface ICategory
     {
-        public List<Category> getAllCategories();
-    }
+		public List<Category> getAllCategories();
+
+	}
 }

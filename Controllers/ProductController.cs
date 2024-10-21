@@ -13,13 +13,14 @@ namespace Inventory_Managment_System.Controllers
         private readonly IProduct _productService;
         private readonly ICategory _categoryService;
         private readonly IBrand _brandService;
+        private readonly ISupplier _supplierService;
 
-
-        public ProductController(IProduct productService, ICategory categoryService, IBrand brandService)
+        public ProductController(IProduct productService, ICategory categoryService, IBrand brandService,ISupplier supplierService)
         {
             _productService = productService;
             _categoryService = categoryService;
             _brandService = brandService;
+            _supplierService = supplierService;
         }
 
         public IActionResult Index()
@@ -35,7 +36,7 @@ namespace Inventory_Managment_System.Controllers
         [HttpGet]
         public IActionResult createProduct()
         {
-
+            ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name");
             ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name");
             ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name");
             return View(); // Return the view with a form to create the product
