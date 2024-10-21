@@ -19,7 +19,10 @@ namespace Inventory_Managment_System
             builder.Services.AddDbContext<InventoryDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            builder.Services.AddScoped<IProduct, ProductServices>();  // Register your service
+            builder.Services.AddScoped<IProduct, productServices>();  // Register your service
+            builder.Services.AddScoped<ICategory, CategoryServices>();
+            builder.Services.AddScoped<IBrand, BrandServices>();
+           
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

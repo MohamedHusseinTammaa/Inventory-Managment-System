@@ -1,20 +1,20 @@
-
 using Inventory_Managment_System.Data;
 using Inventory_Managment_System.Interfaces;
 using Inventory_Managment_System.Models.Classes;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Inventory_Managment_System.Models.Services
 {
-    public class ProductServices : IProduct
+    public class productServices : IProduct
     {
         private readonly InventoryDbContext _context;
-        
-        public ProductServices(InventoryDbContext context) 
+
+        public productServices(InventoryDbContext context)
         {
             _context = context;
         }
-
         public void createProduct(Product product)
         {
             if (product == null)
@@ -43,9 +43,29 @@ namespace Inventory_Managment_System.Models.Services
             return _context.products.ToList();
         }
 
-        public void UpdateProduct()
+        public void UpdateProduct(Product product)
         {
-            throw new NotImplementedException();
+            if (product == null)
+            {
+                throw new ArgumentNullException(nameof(product));
+            }
+
+            var existingProduct = _context.products.Find(product.id);
+            if (existingProduct == null)
+            {
+                throw new KeyNotFoundException($"Product with ID {product.id} not found.");
+            }
+
+            // Update properties
+            existingProduct.name = product.name;
+            existingProduct.description = product.description;
+            existingProduct.price = product.price;
+            existingProduct.stockQuantity = product.stockQuantity;
+            existingProduct.minimumStockLevel = product.minimumStockLevel;
+            existingProduct.UpdatedAt = DateTime.Now;
+
+            _context.SaveChanges();
         }
+
     }
 }
