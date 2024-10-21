@@ -70,13 +70,13 @@
                 @Html.DisplayFor(modelItem => item.UpdatedAt)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.category.id)
+                @Html.DisplayFor(modelItem => item.category.name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.brand.id)
+                @Html.DisplayFor(modelItem => item.brand.name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.supplier.id)
+                @Html.DisplayFor(modelItem => item.supplier.name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |

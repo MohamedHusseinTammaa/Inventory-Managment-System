@@ -29,5 +29,10 @@ namespace Inventory_Managment_System.Models.Services
             
             return productsList;
         }
+
+        public void UpdateProduct()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

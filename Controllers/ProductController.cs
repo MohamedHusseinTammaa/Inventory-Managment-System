@@ -20,5 +20,6 @@ namespace Inventory_Managment_System.Controllers
             var list = product.getAllProducts();
             return View(list);
         }
+
     }
 }
