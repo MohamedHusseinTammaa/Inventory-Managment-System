@@ -1,33 +1,46 @@
-﻿using Inventory_Managment_System.Data;
+
+using Inventory_Managment_System.Data;
 using Inventory_Managment_System.Interfaces;
 using Inventory_Managment_System.Models.Classes;
 using System.Linq;
 
 namespace Inventory_Managment_System.Models.Services
 {
-    public class productServices : IProduct
+    public class ProductServices : IProduct
     {
         private readonly InventoryDbContext _context;
-        public productServices(InventoryDbContext context) 
+        
+        public ProductServices(InventoryDbContext context) 
         {
-            _context= context;
+            _context = context;
         }
 
-        public void createProduct()
+        public void createProduct(Product product)
         {
-            throw new NotImplementedException();
+            if (product == null)
+            {
+                throw new ArgumentNullException(nameof(product));
+            }
+
+            _context.products.Add(product);
+            _context.SaveChanges();
         }
 
         public void deleteProduct(int id)
         {
-            throw new NotImplementedException();
+            var product = _context.products.Find(id);
+            if (product == null)
+            {
+                throw new KeyNotFoundException($"Product with ID {id} not found.");
+            }
+
+            _context.products.Remove(product);
+            _context.SaveChanges();
         }
 
         public List<Product> getAllProducts()
         {
-            List<Product> productsList = _context.products.ToList();
-            
-            return productsList;
+            return _context.products.ToList();
         }
 
         public void UpdateProduct()

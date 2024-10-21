@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿@model IEnumerable<Inventory_Managment_System.Models.Classes.Product>
 
 @{
@@ -86,4 +87,26 @@
         </tr>
 }
     </tbody>
+=======
+﻿<h2 class="align-content-center card-header">All Products</h2>
+<table class="table table-bordered table-hover">
+	@foreach (var product in Model)
+	{
+		<tr>
+			<td>@product.ProductId</td>
+			<td>@product.ProductName</td>
+			<td>@product.ProductPrice</td>
+			<td>@product.ProductQuantity</td>
+			<td>@product.ProductDescription</td>
+			<td>@product.ProductImage</td>
+			<td>@product.ProductCategory</td>
+			<td>@product.ProductBrand</td>
+			<td>@product.ProductStatus</td>
+			<td>@product.ProductCreatedDate</td>
+			<td>@product.ProductUpdatedDate</td>
+			<td>@product.ProductCreatedBy</td>
+			<td>@product.ProductUpdatedBy</td>
+		</tr>
+	}
+>>>>>>> ae58db61dad07e1b33928912ba9b33a01cadbe5f
 </table>
