@@ -15,32 +15,32 @@ namespace Inventory_Managment_System.Models.Services
             _context = context;
         }
 
-        public void CreateProduct(Product product)
+        public void createProduct(Product product)
         {
             if (product == null)
             {
                 throw new ArgumentNullException(nameof(product));
             }
 
-            _context.Products.Add(product);
+            _context.products.Add(product);
             _context.SaveChanges();
         }
 
-        public void DeleteProduct(int id)
+        public void deleteProduct(int id)
         {
-            var product = _context.Products.Find(id);
+            var product = _context.products.Find(id);
             if (product == null)
             {
                 throw new KeyNotFoundException($"Product with ID {id} not found.");
             }
 
-            _context.Products.Remove(product);
+            _context.products.Remove(product);
             _context.SaveChanges();
         }
 
-        public List<Product> GetAllProducts()
+        public List<Product> getAllProducts()
         {
-            return _context.Products.ToList();
+            return _context.products.ToList();
         }
     }
 }
