@@ -22,6 +22,7 @@ namespace Inventory_Managment_System
             builder.Services.AddScoped<IProduct, productServices>();  // Register your service
             builder.Services.AddScoped<ICategory, CategoryServices>();
             builder.Services.AddScoped<IBrand, BrandServices>();
+            builder.Services.AddScoped<ISupplier, SupplierServices>();
            
             builder.Services.AddControllersWithViews();
 
