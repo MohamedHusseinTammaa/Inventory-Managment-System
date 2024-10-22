@@ -4,11 +4,23 @@
     ViewData["Title"] = "getAllProduts";
 }
 
-<h1>getAllProduts</h1>
+<h1 class="text-center">All Produts</h1>
 
 <p>
-    <a asp-action="createProduct">Create New</a>
+    <a style=" " asp-action="createProduct">Create New</a>
 </p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+                    <button class="btn btn-primary" type="submit" id="button-addon2">Go</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>
