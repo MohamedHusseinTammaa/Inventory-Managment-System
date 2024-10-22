@@ -1,7 +1,7 @@
 ﻿using Inventory_Managment_System.Data;
 using Inventory_Managment_System.Interfaces;
 using Inventory_Managment_System.Models.Classes;
-using Inventory_Managment_System.Models.Services;
+using Inventory_Managment_System.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -47,12 +47,11 @@ namespace Inventory_Managment_System.Controllers
         {
             //if (ModelState.IsValid)
             //{
+                
                 _productService.createProduct(productt); // Add the product
                 return RedirectToAction("getAllProduts"); // Redirect to list of products
            // }
 
-            // If the model is not valid, return the same view with validation errors
-            return View(productt);
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.InteropServices;
 
 namespace Inventory_Managment_System.Models.Classes
@@ -16,12 +17,14 @@ namespace Inventory_Managment_System.Models.Classes
         public DateTime UpdatedAt { get; set; }
 
         // Foreign keys
+         [ForeignKey(nameof(Category))]
         public int categoryId { get; set; }
         public Category category { get; set; }
-        
+
         public int brandId { get; set; }
         public Brand brand { get; set; }
 
+        //DefaultSupplierId
         public int supplierId { get; set; }
         public Supplier supplier { get; set; }
     }

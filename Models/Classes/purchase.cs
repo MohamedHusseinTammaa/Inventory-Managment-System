@@ -18,6 +18,6 @@ namespace Inventory_Managment_System.Models.Classes
         public Supplier supplier { get; set; }
         
         // Navigation property
-        public ICollection<PurchaseDetails> PurchaseDetails { get; set; }
+        //public ICollection<PurchaseDetails> PurchaseDetails { get; set; }
     }
 }

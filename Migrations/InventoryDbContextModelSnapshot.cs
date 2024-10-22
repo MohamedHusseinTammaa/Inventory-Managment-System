@@ -30,8 +30,14 @@ namespace Inventory_Managment_System.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
+                    b.Property<int>("LastUserId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("createdAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("createdUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("description")
                         .IsRequired()
@@ -275,9 +281,6 @@ namespace Inventory_Managment_System.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int?>("Purchaseid")
-                        .HasColumnType("int");
-
                     b.Property<double>("costPrice")
                         .HasColumnType("float");
 
@@ -297,8 +300,6 @@ namespace Inventory_Managment_System.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("id");
-
-                    b.HasIndex("Purchaseid");
 
                     b.HasIndex("productId");
 
@@ -387,10 +388,6 @@ namespace Inventory_Managment_System.Migrations
 
             modelBuilder.Entity("Inventory_Managment_System.Models.Classes.PurchaseDetails", b =>
                 {
-                    b.HasOne("Inventory_Managment_System.Models.Classes.Purchase", null)
-                        .WithMany("PurchaseDetails")
-                        .HasForeignKey("Purchaseid");
-
                     b.HasOne("Inventory_Managment_System.Models.Classes.Product", "product")
                         .WithMany()
                         .HasForeignKey("productId")
@@ -408,11 +405,6 @@ namespace Inventory_Managment_System.Migrations
             modelBuilder.Entity("Inventory_Managment_System.Models.Classes.Customer", b =>
                 {
                     b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("Inventory_Managment_System.Models.Classes.Purchase", b =>
-                {
-                    b.Navigation("PurchaseDetails");
                 });
 
             modelBuilder.Entity("Inventory_Managment_System.Models.Classes.Supplier", b =>

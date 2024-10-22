@@ -1,8 +1,9 @@
 using Inventory_Managment_System.Data;
-using Inventory_Managment_System.Models.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Inventory_Managment_System.Interfaces;
+using Inventory_Managment_System.Services;
+using Inventory_Managment_System.Models.Services;
 
 namespace Inventory_Managment_System
 {

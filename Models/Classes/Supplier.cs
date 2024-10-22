@@ -9,6 +9,8 @@ namespace Inventory_Managment_System.Models.Classes
         public string name { get; set; }
         public string phoneNumber { get; set; }//multivalue attribute
         public string address { get; set; }// composite attribute
+        
+        [EmailAddress]
         public string email { get; set; }
         public DateTime createdAt { get; set; }
         public DateTime updatedAt { get; set; }

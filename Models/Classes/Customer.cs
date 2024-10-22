@@ -14,7 +14,7 @@ namespace Inventory_Managment_System.Models.Classes
         public DateTime deliveryDate {get ; set ;}
         public DateTime createdAt {get ; set ;}
         public DateTime updatedAt {get ; set ;}
-
+        // sales
         public ICollection<Order> Orders { get; set; }
     }
 }
