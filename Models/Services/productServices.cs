@@ -1,6 +1,7 @@
 using Inventory_Managment_System.Data;
 using Inventory_Managment_System.Interfaces;
 using Inventory_Managment_System.Models.Classes;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,9 +41,8 @@ namespace Inventory_Managment_System.Models.Services
 
         public List<Product> getAllProducts()
         {
-            return _context.products.ToList();
+            return _context.products.Include(p => p.category).Include(p => p.brand).Include(p =>p.supplier).ToList(); 
         }
-
         public void UpdateProduct(Product product)
         {
             if (product == null)

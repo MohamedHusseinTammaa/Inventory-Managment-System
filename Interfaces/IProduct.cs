@@ -8,8 +8,8 @@ namespace Inventory_Managment_System.Interfaces
 
         public List<Product> getAllProducts();
         public void deleteProduct(int id);
-
         public void UpdateProduct(Product product);
         public void createProduct(Product product);
+
     }
 }
