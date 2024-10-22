@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Inventory_Managment_System.Models.Classes.Product>
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<h2>Search Results for "@ViewData["SearchTerm"]"</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No products found matching your search.
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.name)</th>
+                <th>@Html.DisplayNameFor(model => model.description)</th>
+                <th>@Html.DisplayNameFor(model => model.price)</th>
+                <th>@Html.DisplayNameFor(model => model.stockQuantity)</th>
+                <th>Supplier</th>
+                <th>Category</th>
+                <th>Brand</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.description)</td>
+                    <td>@Html.DisplayFor(modelItem => item.price)</td>
+                    <td>@Html.DisplayFor(modelItem => item.stockQuantity)</td>
+                    <td>@Html.DisplayFor(modelItem => item.supplier.name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.category.name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.brand.name)</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                        <a asp-action="UpdateProduct" asp-route-id="@item.id">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div>
+    <a asp-action="Search" class="btn btn-primary">New Search</a>
+    <a asp-action="getAllProduts" class="btn btn-secondary">Back to List</a>
+</div>

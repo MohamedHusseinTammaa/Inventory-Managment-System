@@ -27,7 +27,18 @@ namespace Inventory_Managment_System.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Search(string searchName)
+        {
+            if (string.IsNullOrWhiteSpace(searchName))
+            {
+                return RedirectToAction(nameof(getAllProduts));
+            }
 
+            var products = _productService.getProductsByName(searchName);
+            ViewData["SearchTerm"] = searchName;
+            return View("SearchResults", products);
+        }
         public IActionResult getAllProduts()
         {
             List<Product> products = _productService.getAllProducts();
@@ -53,7 +64,64 @@ namespace Inventory_Managment_System.Controllers
            // }
 
         }
-    }
+        public IActionResult Details(int id)
+        {
+            Product product = _productService.getProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+        [HttpGet]
+		public IActionResult UpdateProduct(int id)
+		{
+			Product product = _productService.getProductById(id);
+			if (product == null)
+			{
+				return NotFound();
+			}
+
+			// Populate dropdown lists with current selections
+			ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.SupplierId);
+			ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.CategoryId);
+			ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.BrandId);
+
+			return View(product);
+		}
+
+		[HttpPost]
+		public IActionResult UpdateProduct(int id, Product product)
+		{
+			if (id != product.id)
+			{
+				return NotFound();
+			}
+
+			//if (ModelState.IsValid)
+			//{
+			try
+			{
+				_productService.UpdateProduct(product);
+				return RedirectToAction(nameof(getAllProduts));
+			}
+			catch
+			{
+				// If there's an error, reload the dropdown lists
+				ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.SupplierId);
+				ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.CategoryId);
+				ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.BrandId);
+				return View(product);
+			}
+			//}
+
+			// If ModelState is invalid, reload the dropdown lists
+			ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.SupplierId);
+			ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.CategoryId);
+			ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.BrandId);
+			return View(product);
+		}
+	}
 
 
 }
