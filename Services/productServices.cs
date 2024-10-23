@@ -1,6 +1,9 @@
 using Inventory_Managment_System.Data;
 using Inventory_Managment_System.Interfaces;
 using Inventory_Managment_System.Models.Classes;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,16 +29,16 @@ namespace Inventory_Managment_System.Models.Services
             _context.products.Add(product);
             _context.SaveChanges();
         }
-
         public void deleteProduct(int id)
         {
             var product = _context.products.Find(id);
+
             if (product == null)
             {
-                throw new KeyNotFoundException($"Product with ID {id} not found.");
+                throw new KeyNotFoundException($"Product with ID {product.id} not found.");
             }
-
-            _context.products.Remove(product);
+            product.isDeleted = true;
+            _context.products.Update(product);
             _context.SaveChanges();
         }
 

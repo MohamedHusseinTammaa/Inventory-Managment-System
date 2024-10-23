@@ -97,7 +97,7 @@
             <td>
                     @Html.ActionLink("Edit", "UpdateProduct", new { id = item.id })
                     @Html.ActionLink("Details", "Details", new { id = item.id })
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                    @Html.ActionLink("Delete", "deleteProduct", new { id = item.id })
             </td>
         </tr>
 }

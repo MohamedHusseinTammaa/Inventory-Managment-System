@@ -4,7 +4,9 @@ using Inventory_Managment_System.Models.Classes;
 using Inventory_Managment_System.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 
 namespace Inventory_Managment_System.Controllers
 {
@@ -39,6 +41,19 @@ namespace Inventory_Managment_System.Controllers
             ViewData["SearchTerm"] = searchName;
             return View("ProductSearchResultsView", products);
         }
+        [HttpPost]
+        public IActionResult deleteProduct(Product product)
+        {
+            _productService.deleteProduct(product.id);
+            return RedirectToAction("Details",new { id =product.id});
+        }
+        [HttpGet]
+        public IActionResult deleteProduct(int id)
+        {
+            var product=_productService.getProductById(id);
+            return View(product);
+        }
+
         public IActionResult getAllProduts()
         {
 
@@ -67,7 +82,7 @@ namespace Inventory_Managment_System.Controllers
             {
                 return NotFound();
             }
-            return View(product);
+            return View("ProductDetails", product);
         }
         [HttpGet]
 		public IActionResult UpdateProduct(int id)
