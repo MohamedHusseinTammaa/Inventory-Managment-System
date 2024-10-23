@@ -41,6 +41,7 @@ namespace Inventory_Managment_System.Controllers
         }
         public IActionResult getAllProduts()
         {
+
             List<Product> products = _productService.getAllProducts();
             return View(products);
         }
@@ -50,19 +51,14 @@ namespace Inventory_Managment_System.Controllers
             ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name");
             ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name");
             ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name");
-            return View(); // Return the view with a form to create the product
+            return View();
         }
 
         [HttpPost]
         public IActionResult createProduct(Product productt)
-        {
-            //if (ModelState.IsValid)
-            //{
-                
-                _productService.createProduct(productt); // Add the product
-                return RedirectToAction("getAllProduts"); // Redirect to list of products
-           // }
-
+        {               
+                _productService.createProduct(productt); 
+                return RedirectToAction("getAllProduts"); 
         }
         public IActionResult Details(int id)
         {
@@ -83,9 +79,9 @@ namespace Inventory_Managment_System.Controllers
 			}
 
 			// Populate dropdown lists with current selections
-			ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.SupplierId);
-			ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.CategoryId);
-			ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.BrandId);
+			ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
+			ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.categoryId);
+			ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.brandId);
 
 			return View(product);
 		}
@@ -108,17 +104,17 @@ namespace Inventory_Managment_System.Controllers
 			catch
 			{
 				// If there's an error, reload the dropdown lists
-				ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.SupplierId);
-				ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.CategoryId);
-				ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.BrandId);
+				ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
+				ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.categoryId);
+				ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.brandId);
 				return View(product);
 			}
 			//}
 
 			// If ModelState is invalid, reload the dropdown lists
-			ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.SupplierId);
-			ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.CategoryId);
-			ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.BrandId);
+			ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
+			ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.categoryId);
+			ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.brandId);
 			return View(product);
 		}
 	}

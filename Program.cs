@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Inventory_Managment_System.Interfaces;
 using Inventory_Managment_System.Services;
 using Inventory_Managment_System.Models.Services;
+using productServices = Inventory_Managment_System.Models.Services.productServices;
 
 namespace Inventory_Managment_System
 {
