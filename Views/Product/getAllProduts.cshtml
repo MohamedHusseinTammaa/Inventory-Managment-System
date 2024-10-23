@@ -9,13 +9,17 @@
 <p>
     <a style=" " asp-action="createProduct">Create New</a>
 </p>
+
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="col-md-6">
-            <form>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
-                    <button class="btn btn-primary" type="submit" id="button-addon2">Go</button>
+            <form asp-action="Search" method="post">
+                <div class="form-group">
+                    <label for="searchName" class="control-label">Product Name</label>
+                    <input type="text" name="searchName" id="searchName" class="form-control" />
+                </div>
+                <div class="form-group mt-3">
+                    <input type="submit" value="Search" class="btn btn-primary" />
                 </div>
             </form>
         </div>
@@ -91,7 +95,7 @@
                 @Html.DisplayFor(modelItem => item.supplier.name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                    @Html.ActionLink("Edit", "UpdateProduct", new { id = item.id }) |
                 <a asp-action="Details" asp-route-id="@item.id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
             </td>

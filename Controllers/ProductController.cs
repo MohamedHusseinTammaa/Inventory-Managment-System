@@ -37,7 +37,7 @@ namespace Inventory_Managment_System.Controllers
 
             var products = _productService.getProductsByName(searchName);
             ViewData["SearchTerm"] = searchName;
-            return View("SearchResults", products);
+            return View("ProductSearchResultsView", products);
         }
         public IActionResult getAllProduts()
         {
@@ -73,13 +73,12 @@ namespace Inventory_Managment_System.Controllers
 		public IActionResult UpdateProduct(int id)
 		{
 			Product product = _productService.getProductById(id);
-			if (product == null)
-			{
-				return NotFound();
-			}
-
-			// Populate dropdown lists with current selections
-			ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            // Populate dropdown lists with current selections
+            ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
 			ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.categoryId);
 			ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.brandId);
 
@@ -89,11 +88,11 @@ namespace Inventory_Managment_System.Controllers
 		[HttpPost]
 		public IActionResult UpdateProduct(int id, Product product)
 		{
-			if (id != product.id)
-			{
-				return NotFound();
-			}
-			try
+            if (id != product.id)
+            {
+                return NotFound();
+            }
+            try
 			{
 				_productService.UpdateProduct(product);
 				return RedirectToAction(nameof(getAllProduts));
@@ -104,13 +103,13 @@ namespace Inventory_Managment_System.Controllers
 				ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
 				ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.categoryId);
 				ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.brandId);
-				return View("UpdateProductView", product);
+				return View(product);
 			}
 
-			ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
-			ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.categoryId);
-			ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.brandId);
-			return View("UpdateProductView", product);
+			//ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
+			//ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.categoryId);
+			//ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.brandId);
+			//return View("UpdateProductView", product);
 		}
 	}
 

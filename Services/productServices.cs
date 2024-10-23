@@ -41,7 +41,7 @@ namespace Inventory_Managment_System.Models.Services
 
         public List<Product> getAllProducts()
         {
-            return _context.products.ToList();
+            return _context.products.Include(p => p.category).Include(p => p.brand).Include(p => p.supplier).ToList();
         }
         public List<Product> getProductsByName(string name)
         {
@@ -52,7 +52,7 @@ namespace Inventory_Managment_System.Models.Services
                 .Include(p => p.supplier)
                 .Include(p => p.category)
                 .Include(p => p.brand)
-                .Where(p => p.name==name)
+                .Where(p => p.name.Contains(name))
                 .ToList();
         }
         public Product getProductById(int id)
