@@ -95,8 +95,8 @@
                 @Html.DisplayFor(modelItem => item.supplier.name)
             </td>
             <td>
-                    @Html.ActionLink("Edit", "UpdateProduct", new { id = item.id }) |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                    @Html.ActionLink("Edit", "UpdateProduct", new { id = item.id })
+                    @Html.ActionLink("Details", "Details", new { id = item.id })
                 <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
             </td>
         </tr>
