@@ -25,7 +25,8 @@ namespace Inventory_Managment_System.Models.Services
             {
                 throw new ArgumentNullException(nameof(product));
             }
-
+            product.createdAt = DateTime.Now;
+            product.UpdatedAt = DateTime.Now;
             _context.products.Add(product);
             _context.SaveChanges();
         }
@@ -44,7 +45,10 @@ namespace Inventory_Managment_System.Models.Services
 
         public List<Product> getAllProducts()
         {
-            return _context.products.Include(p => p.category).Include(p => p.brand).Include(p => p.supplier).ToList();
+            return _context.products.Include(p => p.category)
+                .Include(p => p.brand)
+                .Include(p => p.supplier)
+                .Where(p=>p.isDeleted !=true).ToList();
         }
         public List<Product> getProductsByName(string name)
         {
@@ -55,7 +59,7 @@ namespace Inventory_Managment_System.Models.Services
                 .Include(p => p.supplier)
                 .Include(p => p.category)
                 .Include(p => p.brand)
-                .Where(p => p.name.Contains(name))
+                .Where(p => p.name.Contains(name) && p.isDeleted !=true)
                 .ToList();
         }
         public Product getProductById(int id)

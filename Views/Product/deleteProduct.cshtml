@@ -63,25 +63,25 @@
             @Html.DisplayNameFor(model => model.category)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.category.id)
+            @Html.DisplayFor(model => model.category.name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.brand)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.brand.id)
+            @Html.DisplayFor(model => model.brand.name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.supplier)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.supplier.id)
+            @Html.DisplayFor(model => model.supplier.name)
         </dd>
     </dl>
     
     <form asp-action="deleteProduct" method="post">
         <input type="hidden" asp-for="id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="getAllproduts">Back to List</a>
     </form>
 </div>
