@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.InteropServices;
 
@@ -15,6 +16,7 @@ namespace Inventory_Managment_System.Models.Classes
         public int minimumStockLevel { get; set; }
         public DateTime createdAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public bool isDeleted { get; set; }
 
         // Foreign keys
          [ForeignKey(nameof(Category))]

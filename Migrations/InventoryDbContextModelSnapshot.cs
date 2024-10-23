@@ -209,6 +209,9 @@ namespace Inventory_Managment_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("minimumStockLevel")
                         .HasColumnType("int");
 
