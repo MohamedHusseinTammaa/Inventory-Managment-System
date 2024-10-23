@@ -93,9 +93,6 @@ namespace Inventory_Managment_System.Controllers
 			{
 				return NotFound();
 			}
-
-			//if (ModelState.IsValid)
-			//{
 			try
 			{
 				_productService.UpdateProduct(product);
@@ -107,15 +104,13 @@ namespace Inventory_Managment_System.Controllers
 				ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
 				ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.categoryId);
 				ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.brandId);
-				return View(product);
+				return View("UpdateProductView", product);
 			}
-			//}
 
-			// If ModelState is invalid, reload the dropdown lists
 			ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
 			ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.categoryId);
 			ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.brandId);
-			return View(product);
+			return View("UpdateProductView", product);
 		}
 	}
 
