@@ -1,78 +1,54 @@
-﻿@model Inventory_Managment_System.Models.LoginViewModel
-@{
-    ViewData["Title"] = "Login";
-}
-
-<h2>Login</h2>
-
-<div class="row form-control container">
-    <div class="active">
-        <form asp-action="Login" method="post" class="input-group ">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email" class="form-control-plaintext"></label>
-                <input asp-for="Email" class="input-group-text" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="form-control-plaintext"></label>
-                <input asp-for="Password" class="input-group-text" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
+﻿<div class="justify-content-center col-md-7 w-50 ">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"  class="bi bi-person-check justify-content-center border-bottom" viewBox="0 0 16 16">
+        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+        <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" />
+    </svg>
+    <form>
+    <div class="row mb-3">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+            <input type="email" class="form-control" id="inputEmail3">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" id="inputPassword3">
+        </div>
+    </div>
+    <fieldset class="row mb-3">
+        <legend class="col-form-label col-sm-2 pt-0">Role</legend>
+        <div class="col-sm-10">
             <div class="form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="Staff" checked>
+                <label class="form-check-label" for="gridRadios1">
+                    Staff
                 </label>
             </div>
-            <div class="btn">
-                <input type="submit" value="Login" class="btn btn-dark btn-outline-primary" style="color : dodgerblue"/>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="Admin">
+                <label class="form-check-label" for="gridRadios2">
+                    Admin
+                </label>
             </div>
-        </form>
+            <div class="form-check disabled">
+                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="Manager">
+                <label class="form-check-label" for="gridRadios3">
+                    Manager
+                </label>
+            </div>
+        </div>
+    </fieldset>
+    <div class="row mb-3">
+        <div class="col-sm-10 offset-sm-2">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck1">
+                <label class="form-check-label" for="gridCheck1">
+                    Remember Me
+                </label>
+            </div>
+        </div>
     </div>
+    <button type="submit" class="btn btn-primary">Sign in</button>
+</form>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-    }
-    .container {
-        max-width: 400px;
-        margin: 50px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-        text-align: center;
-        color: #333;
-    }
-    .form-group {
-        margin-bottom: 15px;
-    }
-    .form-control {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-    }
-    .btn-primary {
-        width: 100%;
-        padding: 10px;
-        background-color: #007bff;
-        border: none;
-        color: #fff;
-        cursor: pointer;
-        border-radius: 10px;
-    }
-    .btn-primary:hover {
-        background-color: #0056b3;
-    }
-    .text-danger {
-        color: #dc3545;
-    }
-</style>
