@@ -41,7 +41,7 @@ else
                     <td>
                         <a asp-action="Details" asp-route-id="@item.id">Details</a> |
                         <a asp-action="UpdateProduct" asp-route-id="@item.id">Edit</a> |
-                        <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                        <a asp-action="deleteProduct" asp-route-id="@item.id">Delete</a>
                     </td>
                 </tr>
             }
@@ -50,6 +50,6 @@ else
 }
 
 <div>
-    <a asp-action="Search" class="btn btn-primary">New Search</a>
+    <a asp-action="getAllproduts" class="btn btn-primary">New Search</a>
     <a asp-action="getAllProduts" class="btn btn-secondary">Back to List</a>
 </div>

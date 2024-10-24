@@ -1,105 +1,105 @@
 @model IEnumerable<Inventory_Managment_System.Models.Classes.Product>
 
 @{
-    ViewData["Title"] = "getAllProduts";
+    ViewData["Title"] = "All Products";
 }
 
-<h1 class="text-center">All Produts</h1>
-
-<p>
-    <a style=" " asp-action="createProduct">Create New</a>
-</p>
+<h1 class="text-center">All Products</h1>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <form asp-action="Search" method="post">
-                <div class="form-group">
-                    <label for="searchName" class="control-label">Product Name</label>
-                    <input type="text" name="searchName" id="searchName" class="form-control" />
-                </div>
-                <div class="form-group mt-3">
-                    <input type="submit" value="Search" class="btn btn-primary" />
-                </div>
-            </form>
+    <div class="mb-3">
+        <a asp-action="createProduct" class="btn btn-success">Create New</a>
+    </div>
+    <div class="align-items-center">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <form asp-action="Search" method="post">
+                    <div class="input-group">
+                        <input type="text" name="searchName" id="searchName" class="form-control" placeholder="Product Name" />
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+    
+
+    <table class="table table-striped table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().name)</th>
+                <th>@Html.DisplayNameFor(model => model.First().description)</th>
+                <th>@Html.DisplayNameFor(model => model.First().price)</th>
+                <th>@Html.DisplayNameFor(model => model.First().stockQuantity)</th>
+                <th>@Html.DisplayNameFor(model => model.First().minimumStockLevel)</th>
+                <th>@Html.DisplayNameFor(model => model.First().createdAt)</th>
+                <th>@Html.DisplayNameFor(model => model.First().UpdatedAt)</th>
+                <th>@Html.DisplayNameFor(model => model.First().category.name)</th>
+                <th>@Html.DisplayNameFor(model => model.First().brand.name)</th>
+                <th>@Html.DisplayNameFor(model => model.First().supplier.name)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.description)</td>
+                    <td>@Html.DisplayFor(modelItem => item.price)</td>
+                    <td>@Html.DisplayFor(modelItem => item.stockQuantity)</td>
+                    <td>@Html.DisplayFor(modelItem => item.minimumStockLevel)</td>
+                    <td>@Html.DisplayFor(modelItem => item.createdAt)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UpdatedAt)</td>
+                    <td>@Html.DisplayFor(modelItem => item.category.name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.brand.name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.supplier.name)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "UpdateProduct", new { id = item.id }, new { @class = "btn btn-warning btn-sm" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.id }, new { @class = "btn btn-info btn-sm" }) |
+                        @Html.ActionLink("Delete", "deleteProduct", new { id = item.id }, new { @class = "btn btn-danger btn-sm" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.stockQuantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.minimumStockLevel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.createdAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.brand)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.supplier)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.stockQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.minimumStockLevel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.createdAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.category.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.brand.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.supplier.name)
-            </td>
-            <td>
-                    @Html.ActionLink("Edit", "UpdateProduct", new { id = item.id })
-                    @Html.ActionLink("Details", "Details", new { id = item.id })
-                    @Html.ActionLink("Delete", "deleteProduct", new { id = item.id })
-            </td>
-        </tr>
+
+<style >
+    .highlight {
+        background-color: #FFD580; /* Removed the comma */
+    }
+
+    .zero {
+        background-color: #FF474A;
+    }
+
+    .no {
+        background-color: #CCCCCC; /* Replaced 'xhtml10s' with a valid color */
+    }
+</style>
+
+
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+           
+            const rows = document.querySelectorAll("tbody tr");
+            rows.forEach(row => {
+                const stockQuantity = parseInt(row.cells[3].innerText);
+                const reorderLevel = parseInt(row.cells[4].innerText);
+
+                if (stockQuantity <= reorderLevel && stockQuantity > 0) {
+                    row.classList.add("highlight");
+                }
+                else if (stockQuantity === 0) {
+                    row.classList.add("zero");
+                }
+
+            });
+        });
+    </script>
 }
-    </tbody>
-</table>

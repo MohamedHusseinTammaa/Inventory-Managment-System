@@ -2,16 +2,28 @@
 
 namespace Inventory_Managment_System.Models.Classes
 {
-    public class OrderDetails
+    public class orderDetails
     {
         [Key]
-        public int id { get; set; }
-        public int quantity { get; set; }
-        public int price { get; set; }
+        public int Id { get; set; }
+
+        public int Quantity { get; set; }
+        public double Price { get; set; }
+        public decimal Discount { get; set; }
+        public decimal Tax { get; set; }
+        public decimal FinalPrice { get; set; } // Total cost for this item
+
+        // Foreign keys
         public int orderId { get; set; }
-        public int productId { get; set; }
-        public decimal discount {get ; set ;}
-        public decimal tax {get ; set ;}
-        public decimal finalPrice {get ; set ;}
+        public order order { get; set; }
+
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
+
+        // Method to calculate final price
+        //public void CalculateFinalPrice()
+        //{
+        //    FinalPrice = (Quantity * Price) - Discount + Tax;
+        //}
     }
 }

@@ -5,16 +5,24 @@ namespace Inventory_Managment_System.Models.Classes
     public class Customer
     {
         [Key]
-        public int id { get; set; }
-        public string name { get; set; }
-        public string contactInfo { get; set; } // multivalue attribute
-        public string address { get; set; } //composite attribute
-        public string orderStatus{get ; set;}
-        public string paymentStatus{get ; set;}
-        public DateTime deliveryDate {get ; set ;}
-        public DateTime createdAt {get ; set ;}
-        public DateTime updatedAt {get ; set ;}
-        // sales
-        public ICollection<Order> Orders { get; set; }
+        public int Id { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string Name { get; set; }
+
+        public string ContactInfo { get; set; } // Multivalue attribute
+        public string Address { get; set; } // Composite attribute
+
+        public string OrderStatus { get; set; }
+        public string PaymentStatus { get; set; }
+        public DateTime DeliveryDate { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+
+        // Navigation property
+        public ICollection<order> orders { get; set; }
     }
+
 }

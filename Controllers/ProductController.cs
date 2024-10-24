@@ -16,13 +16,15 @@ namespace Inventory_Managment_System.Controllers
         private readonly ICategory _categoryService;
         private readonly IBrand _brandService;
         private readonly ISupplier _supplierService;
+        private readonly Iorder _order;
 
-        public ProductController(IProduct productService, ICategory categoryService, IBrand brandService,ISupplier supplierService)
+        public ProductController(IProduct productService, ICategory categoryService, IBrand brandService,ISupplier supplierService, Iorder order)
         {
             _productService = productService;
             _categoryService = categoryService;
             _brandService = brandService;
             _supplierService = supplierService;
+            _order = order;
         }
 
         public IActionResult Index()
