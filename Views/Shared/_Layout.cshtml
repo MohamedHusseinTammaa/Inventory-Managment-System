@@ -8,56 +8,156 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Inventory_Managment_System.styles.css" asp-append-version="true" />
     <style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #818cf8;
+            --accent-color: #c7d2fe;
+            --text-light: #f3f4f6;
+            --text-dark: #1f2937;
+            --hover-color: #4338ca;
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            background-color: #f8fafc;
+        }
+
         /* Sidebar styles */
         .sidebar {
             height: 100vh;
-            width: 250px;
+            width: 280px;
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #f8f9fa;
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             padding-top: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+            transition: all var(--transition-speed);
             z-index: 1000;
+            color: var(--text-light);
         }
 
         .sidebar-header {
-            padding: 0 15px 20px;
-            border-bottom: 1px solid #dee2e6;
+            padding: 0 25px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
         }
 
-        .sidebar .navbar-nav {
-            width: 100%;
+        .sidebar-header .navbar-brand {
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 1.25rem;
+            text-decoration: none;
         }
 
         .sidebar .nav-item {
-            width: 100%;
+            margin: 8px 16px;
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         .sidebar .nav-link {
-            padding: 15px 20px;
-            color: #333;
-            transition: all 0.3s;
+            padding: 12px 20px;
+            color: var(--text-light);
+            border-radius: 12px;
+            transition: all var(--transition-speed);
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .sidebar .nav-link:hover {
-            background-color: #e9ecef;
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Icon styles */
+        .nav-icon {
+            width: 20px;
+            height: 20px;
         }
 
         /* Main content wrapper */
         .content-wrapper {
-            margin-left: 250px;
-            transition: all 0.3s;
+            margin-left: 280px;
+            transition: all var(--transition-speed);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            background-color: #f8fafc;
+        }
+
+        /* Login icon styles */
+        .login-icon {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+        }
+
+        .login-icon a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 12px;
+            transition: all var(--transition-speed);
+        }
+
+        .login-icon a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Toggler button styles */
+        .sidebar-toggler {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1001;
+            display: none;
+            background-color: var(--primary-color);
+            border: none;
+            color: var(--text-light);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .sidebar-toggler:hover {
+            background-color: var(--hover-color);
+        }
+
+        /* Main content padding adjustments */
+        .main-content {
+            padding: 30px;
+            flex: 1;
+        }
+
+        /* Card styles */
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        /* Footer adjustments */
+        .footer {
+            margin-top: auto;
+            padding: 20px 0;
+            background-color: white;
+            border-top: 1px solid #e5e7eb;
         }
 
         /* Responsive styles */
-        (max-width: 768px) {
+        @media (max-width: 768px) {
             .sidebar {
-                margin-left: -250px;
+                margin-left: -280px;
             }
 
             .sidebar.active {
@@ -69,49 +169,23 @@
             }
 
             .content-wrapper.active {
-                margin-left: 250px;
+                margin-left: 280px;
             }
-        }
 
-        /* Login icon styles */
-        .login-icon {
-            padding: 15px 20px;
-            border-top: 1px solid #dee2e6;
-            margin-top: auto;
-        }
-
-        /* Toggler button styles */
-        .sidebar-toggler {
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 1001;
-            display: none;
-        }
-
-        (max-width: 768px) {
             .sidebar-toggler {
                 display: block;
             }
         }
-
-        /* Main content padding adjustments */
-        .main-content {
-            padding: 20px;
-            flex: 1;
-        }
-
-        /* Footer adjustments */
-        .footer {
-            margin-top: auto;
-            padding: 15px 0;
-        }
     </style>
 </head>
 <body>
-    <!-- Sidebar Toggle Button (visible on mobile) -->
-    <button class="btn btn-light sidebar-toggler" type="button">
-        <span class="navbar-toggler-icon"></span>
+    <!-- Sidebar Toggle Button -->
+    <button class="btn sidebar-toggler" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
     </button>
 
     <!-- Sidebar -->
@@ -119,32 +193,45 @@
         <div class="sidebar-header">
             <h5 class="mb-0">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    Inventory_Managment
+                    Inventory System
                 </a>
             </h5>
         </div>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
                     Home
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" asp-area="" asp-controller="Product" asp-action="getAllProduts">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    </svg>
                     Products
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
                     Privacy
                 </a>
             </li>
         </ul>
         <div class="login-icon">
             <a asp-area="" asp-controller="Account" asp-action="Login" title="Login">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
                 </svg>
+                <span>Login</span>
             </a>
         </div>
     </nav>
@@ -152,10 +239,12 @@
     <!-- Main Content Wrapper -->
     <div class="content-wrapper">
         <main role="main" class="main-content">
-            @RenderBody()
+            <div class="content-card">
+                @RenderBody()
+            </div>
         </main>
 
-        <footer class="border-top footer text-muted">
+        <footer class="footer text-muted">
             <div class="container">
                 &copy; 2024 - Inventory_Managment_System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </div>
@@ -170,6 +259,16 @@
         document.querySelector('.sidebar-toggler').addEventListener('click', function() {
             document.querySelector('.sidebar').classList.toggle('active');
             document.querySelector('.content-wrapper').classList.toggle('active');
+        });
+
+        // Add active class to current nav item
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
         });
     </script>
     @await RenderSectionAsync("Scripts", required: false)
