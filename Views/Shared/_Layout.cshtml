@@ -7,54 +7,171 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Inventory_Managment_System.styles.css" asp-append-version="true" />
+    <style>
+        /* Sidebar styles */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 0 15px 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .sidebar .navbar-nav {
+            width: 100%;
+        }
+
+        .sidebar .nav-item {
+            width: 100%;
+        }
+
+        .sidebar .nav-link {
+            padding: 15px 20px;
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: #e9ecef;
+        }
+
+        /* Main content wrapper */
+        .content-wrapper {
+            margin-left: 250px;
+            transition: all 0.3s;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Responsive styles */
+        (max-width: 768px) {
+            .sidebar {
+                margin-left: -250px;
+            }
+
+            .sidebar.active {
+                margin-left: 0;
+            }
+
+            .content-wrapper {
+                margin-left: 0;
+            }
+
+            .content-wrapper.active {
+                margin-left: 250px;
+            }
+        }
+
+        /* Login icon styles */
+        .login-icon {
+            padding: 15px 20px;
+            border-top: 1px solid #dee2e6;
+            margin-top: auto;
+        }
+
+        /* Toggler button styles */
+        .sidebar-toggler {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1001;
+            display: none;
+        }
+
+        (max-width: 768px) {
+            .sidebar-toggler {
+                display: block;
+            }
+        }
+
+        /* Main content padding adjustments */
+        .main-content {
+            padding: 20px;
+            flex: 1;
+        }
+
+        /* Footer adjustments */
+        .footer {
+            margin-top: auto;
+            padding: 15px 0;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Inventory_Managment_System</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="getAllProduts">Products</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="login-icon">
-                    <a asp-area="" asp-controller="Account" asp-action="Login" title="Login">
-                        <svg xmlns ="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
+    <!-- Sidebar Toggle Button (visible on mobile) -->
+    <button class="btn btn-light sidebar-toggler" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <main role="main" class="pb-3">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h5 class="mb-0">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    Inventory_Managment_System
+                </a>
+            </h5>
+        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                    Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Product" asp-action="getAllProduts">
+                    Products
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
+                    Privacy
+                </a>
+            </li>
+        </ul>
+        <div class="login-icon">
+            <a asp-area="" asp-controller="Account" asp-action="Login" title="Login">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper">
+        <main role="main" class="main-content">
             @RenderBody()
         </main>
+
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2024 - Inventory_Managment_System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Inventory_Managment_System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        // Sidebar toggle functionality
+        document.querySelector('.sidebar-toggler').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.content-wrapper').classList.toggle('active');
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
