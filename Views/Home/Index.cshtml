@@ -1,8 +1,61 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inventory Management System";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    
+    <h1 class="display-4">Welcome to the Inventory Management System</h1>
+    <p class="lead">Manage your inventory, track orders, and view detailed reports with ease.</p>
+</div>
+
+<div class="row mt-5">
+    <!-- Products -->
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Manage Products</h5>
+                <p class="card-text">Add, update, and delete products in your inventory.</p>
+                <a asp-controller="Product" asp-action="Index" class="btn btn-primary">View Products</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Suppliers -->
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Manage Suppliers</h5>
+                <p class="card-text">Add new suppliers or update supplier information.</p>
+                <a asp-controller="Supplier" asp-action="Index" class="btn btn-primary">View Suppliers</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Orders -->
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Manage Orders</h5>
+                <p class="card-text">Track orders, add new orders, and view order history.</p>
+                <a asp-controller="Order" asp-action="Index" class="btn btn-primary">View Orders</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="mt-5"/>
+
+<!-- Statistics Section (Optional) -->
+<div class="row text-center">
+    <div class="col-md-4">
+        <h2>@ViewBag.TotalProducts</h2>
+        <p>Total Products</p>
+    </div>
+    <div class="col-md-4">
+        <h2>@ViewBag.TotalSuppliers</h2>
+        <p>Total Suppliers</p>
+    </div>
+    <div class="col-md-4">
+        <h2>@ViewBag.TotalOrders</h2>
+        <p>Total Orders</p>
+    </div>
 </div>
