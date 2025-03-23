@@ -34,6 +34,7 @@ namespace Inventory_Managment_System.Controllers
         [HttpPost]
         public IActionResult Search(string searchName)
         {
+            searchName =searchName.Trim();
             if (string.IsNullOrWhiteSpace(searchName))
             {
                 return RedirectToAction(nameof(getAllProduts));

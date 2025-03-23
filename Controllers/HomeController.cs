@@ -1,5 +1,6 @@
 using Inventory_Managment_System.Interfaces;
 using Inventory_Managment_System.Models;
+using Inventory_Managment_System.Models.Classes;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
