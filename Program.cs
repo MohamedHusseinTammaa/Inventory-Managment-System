@@ -5,6 +5,8 @@ using Inventory_Managment_System.Interfaces;
 using Inventory_Managment_System.Services;
 using Inventory_Managment_System.Models.Services;
 using productServices = Inventory_Managment_System.Models.Services.productServices;
+using Inventory_Managment_System.Repositories;
+using Inventory_Managment_System.UnitOfWork;
 
 namespace Inventory_Managment_System
 {
@@ -15,18 +17,22 @@ namespace Inventory_Managment_System
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("defaultConnection");
 
             // Register DbContext and Services here before building the app
             builder.Services.AddDbContext<InventoryDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection"),
+                    b => b.MigrationsAssembly(typeof(InventoryDbContext).FullName)));
 
-            builder.Services.AddScoped<IProduct, productServices>();  // Register your service
+            // Register repositories and unit of work
+            builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            builder.Services.AddScoped<IUnitOfWork, unitOfWork>();
+
+            builder.Services.AddScoped<IProduct, productServices>();
             builder.Services.AddScoped<ICategory, CategoryServices>();
             builder.Services.AddScoped<IBrand, BrandServices>();
             builder.Services.AddScoped<ISupplier, SupplierServices>();
             builder.Services.AddScoped<Iorder, orderService>();
-           
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

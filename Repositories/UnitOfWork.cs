@@ -10,17 +10,17 @@ namespace Inventory_Managment_System.UnitOfWork
     /// <summary>
     /// Unit of Work class that coordinates the work of multiple repositories.
     /// </summary>
-    public class UnitOfWork : IUnitOfWork
+    public class unitOfWork : IUnitOfWork
     {
         private readonly InventoryDbContext _context;
         private readonly Dictionary<Type, object> _repositories;
         private bool _disposed;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UnitOfWork"/> class.
+        /// Initializes a new instance of the <see cref="unitOfWork"/> class.
         /// </summary>
         /// <param name="context">The database context.</param>
-        public UnitOfWork(InventoryDbContext context)
+        public unitOfWork(InventoryDbContext context)
         {
             _context = context;
             _repositories = new Dictionary<Type, object>();
