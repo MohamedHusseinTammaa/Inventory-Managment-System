@@ -6,11 +6,11 @@ namespace Inventory_Managment_System.Interfaces
     public interface IProduct
     {
 
-        public List<Product> getAllProducts();
+        public Task<IEnumerable<Product>> getAllProducts();
         public void deleteProduct(int id);
-        public Product getProductById(int id);
+        public  Product getProductById(int id);
         public void UpdateProduct(Product product);
-        public void createProduct(Product product);
-        public List<Product> getProductsByName(string name);
+        public Task<Product> createProduct(Product product);
+        public Task<IEnumerable<Product>> getProductsByName(string name);
     }
 }

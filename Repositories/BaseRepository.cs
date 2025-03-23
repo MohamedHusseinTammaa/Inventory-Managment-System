@@ -88,8 +88,12 @@ namespace Inventory_Managment_System.Repositories
         /// Deletes an entity.
         /// </summary>
         /// <param name="entity">The entity to delete.</param>
-        public void delete(T entity)
+        public void delete(int id)
         {
+            
+            var entity = _dbSet.Find(id);
+            if (entity == null)
+                throw new KeyNotFoundException($"Entity with ID {id} not found.");
             _dbSet.Remove(entity);
         }
 
