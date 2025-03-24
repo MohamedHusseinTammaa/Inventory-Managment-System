@@ -42,7 +42,8 @@ namespace Inventory_Managment_System.Models.Services
 
         public async Task<IEnumerable<Product>> getAllProducts()
         {
-            return await _unitOfWork.Repository<Product>().getAllAsync();
+            var products =  await _unitOfWork.Repository<Product>().getAllAsync();
+            return products.Where(p => !p.isDeleted);
         }
         public async Task<IEnumerable<Product>> getProductsByName(string name)
         {
