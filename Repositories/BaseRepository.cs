@@ -120,9 +120,9 @@ namespace Inventory_Managment_System.Repositories
         /// Counts all entities asynchronously.
         /// </summary>
         /// <returns>A task that represents the asynchronous operation. The task result contains the count of entities.</returns>
-        public async Task<int> countAllAsync()
+        public int countAll()
         {
-            return await _dbSet.CountAsync();
+            return _dbSet.Count();
         }
 
         /// <summary>

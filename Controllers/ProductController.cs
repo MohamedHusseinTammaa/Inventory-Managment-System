@@ -106,13 +106,7 @@ namespace Inventory_Managment_System.Controllers
         [HttpPost]
         public IActionResult UpdateProduct(int id, Product product)
         {
-            if (id != product.id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
+    
                 try
                 {
                     _productService.UpdateProduct(product);
@@ -123,7 +117,6 @@ namespace Inventory_Managment_System.Controllers
                     // Log the exception
                     ModelState.AddModelError("", $"Update failed: {ex.Message}");
                 }
-            }
 
             // If we get here, something went wrong
             ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);

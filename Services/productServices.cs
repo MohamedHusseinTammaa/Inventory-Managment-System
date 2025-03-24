@@ -80,5 +80,9 @@ namespace Inventory_Managment_System.Models.Services
             _unitOfWork.Complete();
         }
 
+        public int CountProducts()
+        {
+            return  _unitOfWork.Repository<Product>().countAll();
+        }
     }
 }
