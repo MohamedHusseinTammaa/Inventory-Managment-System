@@ -21,8 +21,7 @@ namespace Inventory_Managment_System.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.TotalProducts = _productService.getAllProducts().Count();
-            ViewBag.TotalSuppliers = _supplierService.getAllSuppliers().Count();
+            ViewBag.TotalProducts =  _supplierService.getAllSuppliers().Count();
             ViewBag.TotalOrders = _orderService.GetAllOrders().Count();
 
             return View();
