@@ -34,7 +34,9 @@ namespace Inventory_Managment_System.Models.Services
         }
         public void deleteProduct(int id)
         {
-            _unitOfWork.Repository<Product>().delete(id);
+            var product = _unitOfWork.Repository<Product>().getByID(id);
+            product.isDeleted = true;
+            _unitOfWork.Repository<Product>().update(product,id);
             _unitOfWork.Complete();
         }
 
