@@ -106,10 +106,7 @@ namespace Inventory_Managment_System.Controllers
 		[HttpPost]
 		public IActionResult UpdateProduct(int id, Product product)
 		{
-            if (id != product.id)
-            {
-                return NotFound();
-            }
+           
             try
 			{
 				_productService.UpdateProduct(product);

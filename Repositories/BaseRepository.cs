@@ -104,12 +104,12 @@ namespace Inventory_Managment_System.Repositories
         /// <returns>The updated entity.</returns>
         public T update(T entity,int id)
         {
-            if (entity == null)
-                throw new ArgumentNullException(nameof(entity));
-            var existing = _dbSet.Find(id);
-            if (existing == null)
-                throw new KeyNotFoundException($"Entity with ID {entity} not found.");
-            _context.Entry(entity).CurrentValues.SetValues(entity);
+            //if (entity == null)
+            //    throw new ArgumentNullException(nameof(entity));
+            //var existing = _dbSet.Find(id);
+            //if (existing == null)
+            //    throw new KeyNotFoundException($"Entity with ID {entity} not found.");
+            _context.Update<T>(entity);
             return entity;
         }
 
