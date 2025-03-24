@@ -57,10 +57,10 @@ namespace Inventory_Managment_System.Controllers
             return View(product);
         }
 
-        public IActionResult getAllProduts()
+        public async Task <IActionResult> getAllProduts()
         {
 
-            List<Product> products = _productService.getAllProducts();
+            IEnumerable<Product> products = await _productService.getAllProducts();
             return View(products);
         }
         [HttpGet]
