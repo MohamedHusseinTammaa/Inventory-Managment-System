@@ -68,8 +68,17 @@ namespace Inventory_Managment_System.Models.Services
             {
                 throw new KeyNotFoundException($"Product with ID {product.id} not found.");
             }
+
+            // Set the updated date
+            product.UpdatedAt = DateTime.Now;
+            // Preserve the creation date
+            product.createdAt = existingProduct.createdAt;
+            // Preserve the isDeleted flag if not explicitly set
+            product.isDeleted = existingProduct.isDeleted;
+
             _unitOfWork.Repository<Product>().update(product, product.id);
             _unitOfWork.Complete();
         }
+
     }
 }

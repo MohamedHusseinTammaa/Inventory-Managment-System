@@ -103,30 +103,36 @@ namespace Inventory_Managment_System.Controllers
 			return View(product);
 		}
 
-		[HttpPost]
-		public IActionResult UpdateProduct(int id, Product product)
-		{
-           
-            try
-			{
-				_productService.UpdateProduct(product);
-				return RedirectToAction(nameof(getAllProduts));
-			}
-			catch
-			{
-				// If there's an error, reload the dropdown lists
-				ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
-				ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.categoryId);
-				ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.brandId);
-				return View(product);
-			}
+        [HttpPost]
+        public IActionResult UpdateProduct(int id, Product product)
+        {
+            if (id != product.id)
+            {
+                return NotFound();
+            }
 
-			//ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
-			//ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.categoryId);
-			//ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.brandId);
-			//return View("UpdateProductView", product);
-		}
-	}
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _productService.UpdateProduct(product);
+                    return RedirectToAction(nameof(getAllProduts));
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception
+                    ModelState.AddModelError("", $"Update failed: {ex.Message}");
+                }
+            }
+
+            // If we get here, something went wrong
+            ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
+            ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.categoryId);
+            ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.brandId);
+            return View(product);
+        }
+
+    }
 
 
 }

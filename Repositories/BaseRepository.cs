@@ -102,16 +102,19 @@ namespace Inventory_Managment_System.Repositories
         /// </summary>
         /// <param name="entity">The entity to update.</param>
         /// <returns>The updated entity.</returns>
-        public T update(T entity,int id)
+        public T update(T entity, int id)
         {
-            //if (entity == null)
-            //    throw new ArgumentNullException(nameof(entity));
-            //var existing = _dbSet.Find(id);
-            //if (existing == null)
-            //    throw new KeyNotFoundException($"Entity with ID {entity} not found.");
-            _context.Update<T>(entity);
-            return entity;
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            var existing = _dbSet.Find(id);
+            if (existing == null)
+                throw new KeyNotFoundException($"Entity with ID {id} not found.");
+
+            _context.Entry(existing).CurrentValues.SetValues(entity);
+            return existing;
         }
+
 
         /// <summary>
         /// Counts all entities asynchronously.
