@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 using Microsoft.EntityFrameworkCore;
+using NuGet.DependencyResolver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,12 +46,12 @@ namespace Inventory_Managment_System.Models.Services
             var products =  await _unitOfWork.Repository<Product>().getAllAsync();
             return products.Where(p => !p.isDeleted);
         }
-        public async Task<IEnumerable<Product>> getProductsByName(string name)
+        public IEnumerable<Product> getProductsByName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
-                return new List<Product>();
+                return Enumerable.Empty<Product>();
 
-            return await _unitOfWork.Repository<Product>().findAllAsync(p => p.name.Contains(name), null, null);
+            return _unitOfWork.Repository<Product>().getByName(name);
         }
         public Product getProductById(int id)
         {

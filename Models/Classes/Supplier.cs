@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Inventory_Managment_System.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace Inventory_Managment_System.Models.Classes
 {
-    public class Supplier
+    public class Supplier : ISharedProperties
     {
         [Key]
         public int id { get; set; }
