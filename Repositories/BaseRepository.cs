@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Inventory_Managment_System.Data;
+using Inventory_Managment_System.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Inventory_Managment_System.Repositories
@@ -8,7 +9,7 @@ namespace Inventory_Managment_System.Repositories
     /// Generic repository for performing CRUD operations on entities.
     /// </summary>
     /// <typeparam name="T">The type of the entity.</typeparam>
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : class 
     {
         protected readonly InventoryDbContext _context;
         protected readonly DbSet<T> _dbSet;
@@ -33,6 +34,24 @@ namespace Inventory_Managment_System.Repositories
             return _dbSet.Find(id);
         }
 
+
+        public IEnumerable<T> getByName(string name)
+        {
+            // Constraint to ensure T has a name property
+            if (typeof(T).GetProperty("name") != null )
+            {
+                if(typeof(T).GetProperty("isDeleted") != null)
+                    return _dbSet
+                        .Where(p => EF.Property<string>(p, "name").ToLower().Contains(name.ToLower()) && EF.Property<bool>(p, "isDeleted") == false)
+                        .ToList();
+                else 
+                    return _dbSet
+                    .Where(p => EF.Property<string>(p, "name").ToLower().Contains(name.ToLower()))
+                    .ToList();
+            }
+
+            throw new InvalidOperationException($"{typeof(T).Name} does not have a Name property.");
+        }
         /// <summary>
         /// Gets all entities asynchronously.
         /// </summary>

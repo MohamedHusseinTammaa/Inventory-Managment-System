@@ -1,15 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Inventory_Managment_System.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace Inventory_Managment_System.Models.Classes
 {
-    public class Customer
+    public class Customer : ISharedProperties
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string Name { get; set; }
+        public string name { get; set; }
 
         public string ContactInfo { get; set; } // Multivalue attribute
         public string Address { get; set; } // Composite attribute

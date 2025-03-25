@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Inventory_Managment_System.Models.Classes
 {
-    public class order
+    public class order 
     {
         [Key]
         public int Id { get; set; }

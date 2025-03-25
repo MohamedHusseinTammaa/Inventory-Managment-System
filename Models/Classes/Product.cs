@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
+﻿using Inventory_Managment_System.Interfaces;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.InteropServices;
 
 namespace Inventory_Managment_System.Models.Classes
 {
-    public class Product
+    public class Product : ISharedProperties
     {
         [Key]
         public int id { get; set; }
