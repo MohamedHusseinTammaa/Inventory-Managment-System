@@ -3,21 +3,25 @@ using Inventory_Managment_System.Models.Classes;
 using System;
 using System.Collections.Generic;
 using Inventory_Managment_System.Data;
+using Inventory_Managment_System.UnitOfWork;
 
 namespace Inventory_Managment_System.Services
 {
     public class SupplierServices : ISupplier
     {
-        private readonly InventoryDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public SupplierServices(InventoryDbContext context)
+        public SupplierServices(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
-        public List<Supplier> getAllSuppliers()
+        public async Task<IEnumerable<Supplier>> getAllSuppliers()
         {
-            var list = _context.suppliers.ToList();
-            return list;
+            return await _unitOfWork.Repository<Supplier>().getAllAsync();
+        }
+        public  async Task<int> CountAllSuppliers()
+        {
+            return await _unitOfWork.Repository<Supplier>().countAllAsync();
         }
     }
 }

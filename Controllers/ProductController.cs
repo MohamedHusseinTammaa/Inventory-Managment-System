@@ -66,16 +66,16 @@ namespace Inventory_Managment_System.Controllers
         [HttpGet]
         public IActionResult createProduct()
         {
-            ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name");
+            ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers().Result, "id", "name");
             ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name");
             ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name");
             return View();
         }
 
         [HttpPost]
-        public IActionResult createProduct(Product productt)
+        public IActionResult createProduct(Product product)
         {               
-                _productService.createProduct(productt); 
+                _productService.createProduct(product); 
                 return RedirectToAction("getAllProduts"); 
         }
         public IActionResult Details(int id)
@@ -96,7 +96,7 @@ namespace Inventory_Managment_System.Controllers
                 return NotFound();
             }
             // Populate dropdown lists with current selections
-            ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
+            ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers().Result, "id", "name", product.supplierId);
 			ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.categoryId);
 			ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.brandId);
 
@@ -119,7 +119,7 @@ namespace Inventory_Managment_System.Controllers
                 }
 
             // If we get here, something went wrong
-            ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers(), "id", "name", product.supplierId);
+            ViewData["allsups"] = new SelectList(_supplierService.getAllSuppliers().Result, "id", "name", product.supplierId);
             ViewData["allcats"] = new SelectList(_categoryService.getAllCategories(), "id", "name", product.categoryId);
             ViewData["allbrands"] = new SelectList(_brandService.getAllBrands(), "id", "name", product.brandId);
             return View(product);

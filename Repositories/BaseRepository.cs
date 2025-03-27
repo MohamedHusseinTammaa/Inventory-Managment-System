@@ -70,7 +70,7 @@ namespace Inventory_Managment_System.Repositories
         /// <returns>A task that represents the asynchronous operation. The task result contains the list of matching entities.</returns>
         public async Task<IEnumerable<T>> findAllAsync(Expression<Func<T, bool>> expression, int? take, int? skip)
         {
-            IQueryable<T> query = _dbSet.Where(expression);
+            IQueryable<T> query =  _dbSet.Where(expression);
 
             if (skip.HasValue)
                 query = query.Skip(skip.Value);
@@ -114,6 +114,7 @@ namespace Inventory_Managment_System.Repositories
             if (entity == null)
                 throw new KeyNotFoundException($"Entity with ID {id} not found.");
             _dbSet.Remove(entity);
+            
         }
 
         /// <summary>
@@ -139,10 +140,10 @@ namespace Inventory_Managment_System.Repositories
         /// Counts all entities asynchronously.
         /// </summary>
         /// <returns>A task that represents the asynchronous operation. The task result contains the count of entities.</returns>
-        public int countAll()
-        {
-            return _dbSet.Count();
-        }
+        public async Task<int> countAllAsync()
+    {
+        return await _dbSet.CountAsync();
+    }
 
         /// <summary>
         /// Counts entities that match the specified expression asynchronously.

@@ -12,6 +12,6 @@ namespace Inventory_Managment_System.Interfaces
         public void UpdateProduct(Product product);
         public Task<Product> createProduct(Product product);
         public IEnumerable<Product> getProductsByName(string name);
-        public int CountProducts();
+        public Task<int> CountProducts();
     }
 }

@@ -21,7 +21,8 @@ namespace Inventory_Managment_System
             // Register DbContext and Services here before building the app
             builder.Services.AddDbContext<InventoryDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection"),
-                    b => b.MigrationsAssembly(typeof(InventoryDbContext).FullName)));
+                    b => b.MigrationsAssembly(typeof(InventoryDbContext).FullName)),
+    ServiceLifetime.Scoped);
 
             // Register repositories and unit of work
             builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));

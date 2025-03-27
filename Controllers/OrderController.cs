@@ -31,7 +31,7 @@ namespace Inventory_Managment_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                _order.AddOrder(order);
+                _order.AddOrderAsync(order);
                 return RedirectToAction("GetAllOrders");
             }
             return View(order);

@@ -1,13 +1,15 @@
 ﻿using Inventory_Managment_System.Models.Classes;
+using System.Collections.Generic;
 
 namespace Inventory_Managment_System.Interfaces
 {
-    public interface Iorder
+    public interface Iorder 
     {
-
-        public IEnumerable<order> GetAllOrders();
         public order GetOrderById(int id);
-        public void AddOrder(order order);
+        public IEnumerable<order> getOrdersByName(string name);
+        public Task<IEnumerable<order>> GetAllOrders();
+        public Task<order> AddOrderAsync(order order);
+        public Task<int> CountAllOrders();
         public void UpdateOrder(order order);
         public void DeleteOrder(int id);
         public void CalculateTotalAmount(List<orderDetails> list);
