@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace Inventory_Managment_System.Models.Classes
 {
-    public class Product : ISharedProperties
+    public class Product 
     {
         [Key]
         public int id { get; set; }

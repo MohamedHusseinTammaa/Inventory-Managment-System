@@ -1,12 +1,14 @@
 using Inventory_Managment_System.Data;
 using Inventory_Managment_System.Interfaces;
 using Inventory_Managment_System.Models.Classes;
+using Inventory_Managment_System.Repositories;
 using Inventory_Managment_System.UnitOfWork;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 using Microsoft.EntityFrameworkCore;
 using NuGet.DependencyResolver;
+using NuGet.Protocol.Core.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,8 +45,7 @@ namespace Inventory_Managment_System.Models.Services
 
         public async Task<IEnumerable<Product>> getAllProducts()
         {
-            var products =  await _unitOfWork.Repository<Product>().getAllAsync();
-            return products.Where(p => !p.isDeleted);
+            return await _unitOfWork.Repository<Product>().findAllAsync(p => p.isDeleted == false, 15,0);
         }
         public IEnumerable<Product> getProductsByName(string name)
         {
@@ -81,9 +82,9 @@ namespace Inventory_Managment_System.Models.Services
             _unitOfWork.Complete();
         }
 
-        public int CountProducts()
+        public async Task<int> CountProducts()
         {
-            return  _unitOfWork.Repository<Product>().countAll();
+            return await _unitOfWork.Repository<Product>().countSpecificItems(p=>p.isDeleted==false);  
         }
     }
 }

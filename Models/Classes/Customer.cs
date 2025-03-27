@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Inventory_Managment_System.Models.Classes
 {
-    public class Customer : ISharedProperties
+    public class Customer 
     {
         [Key]
         public int Id { get; set; }

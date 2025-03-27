@@ -12,7 +12,7 @@ namespace Inventory_Managment_System.UnitOfWork
     /// </summary>
     public class unitOfWork : IUnitOfWork
     {
-        private readonly InventoryDbContext _context;
+        private readonly  InventoryDbContext _context;
         private readonly Dictionary<Type, object> _repositories;
         private bool _disposed;
 
