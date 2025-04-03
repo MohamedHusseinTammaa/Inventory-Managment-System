@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Inventory_Managment_System.Models.Classes
 {
-    public class order 
+    public class Order
     {
         [Key]
         public int Id { get; set; }
@@ -15,12 +17,20 @@ namespace Inventory_Managment_System.Models.Classes
         public int CustomerId { get; set; }
 
         // Navigation property
+        [AllowNull]
         public Customer Customer { get; set; }
 
         // Navigation property for related order details
-        public ICollection<orderDetails> orderDetails { get; set; } 
+        public List<OrderDetails> OrderDetails { get; set; } = new List<OrderDetails>();
 
         // Method to calculate the total amount from order details
-        
+        public void CalculateTotalAmount()
+        {
+            if (OrderDetails != null && OrderDetails.Count > 0)
+            {
+                TotalAmount = OrderDetails.Sum(od => (double)od.Price * od.Quantity);
+            }
+        }
     }
+
 }

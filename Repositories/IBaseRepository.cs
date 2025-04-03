@@ -12,7 +12,7 @@ namespace Inventory_Managment_System.Repositories
         T add(T entity);
         Task<T> addAsync(T entity);
         void delete(int id);
-        T update(T entity,int id);
+        Task<T> update(T entity,int id);
         Task<int> countAllAsync();
         Task<int> countSpecificItems(Expression<Func<T, bool>> expression);
     }

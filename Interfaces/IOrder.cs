@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Inventory_Managment_System.Interfaces
 {
-    public interface Iorder 
+    public interface IOrder 
     {
-        public order GetOrderById(int id);
-        public IEnumerable<order> getOrdersByName(string name);
-        public Task<IEnumerable<order>> GetAllOrders();
-        public Task<order> AddOrderAsync(order order);
+        public Order GetOrderById(int id);
+        public IEnumerable<Order> getOrdersByName(string name);
+        public Task<IEnumerable<Order>> GetAllOrders();
+        public Task<Order> AddOrderAsync(Order Order);
         public Task<int> CountAllOrders();
-        public void UpdateOrder(order order);
+        public void UpdateOrder(Order Order);
         public void DeleteOrder(int id);
-        public void CalculateTotalAmount(List<orderDetails> list);
+        public void CalculateTotalAmount(List<OrderDetails> list);
     }
 }

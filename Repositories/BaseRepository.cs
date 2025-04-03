@@ -34,7 +34,11 @@ namespace Inventory_Managment_System.Repositories
             return _dbSet.Find(id);
         }
 
-
+        /// <summary>
+        /// Search by the Name proparty 
+        /// </summary>
+        /// <param name="name">The Name proparty of the entity.</param>
+        /// <returns>The entity with the specified Name or contain it.</returns>
         public IEnumerable<T> getByName(string name)
         {
             // Constraint to ensure T has a name property
@@ -107,13 +111,13 @@ namespace Inventory_Managment_System.Repositories
         /// Deletes an entity.
         /// </summary>
         /// <param name="entity">The entity to delete.</param>
-        public void delete(int id)
+        public async void delete(int id)
         {
             
-            var entity = _dbSet.Find(id);
+            var entity = await _dbSet.FindAsync(id);
             if (entity == null)
                 throw new KeyNotFoundException($"Entity with ID {id} not found.");
-            _dbSet.Remove(entity);
+            await _dbSet.FindAsync(entity);
             
         }
 
@@ -122,12 +126,12 @@ namespace Inventory_Managment_System.Repositories
         /// </summary>
         /// <param name="entity">The entity to update.</param>
         /// <returns>The updated entity.</returns>
-        public T update(T entity, int id)
+        public async Task<T> update(T entity, int id)
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
 
-            var existing = _dbSet.Find(id);
+            var existing = await _dbSet.FindAsync(id);
             if (existing == null)
                 throw new KeyNotFoundException($"Entity with ID {id} not found.");
 
