@@ -4,7 +4,10 @@ namespace Inventory_Managment_System.Interfaces
 {
     public interface ICategory
     {
-		public List<Category> getAllCategories();
-
-	}
+		public Task<IEnumerable<Category>> getAllCategories();
+        public Task<Category> createCategory(Category category);
+        public Task<Category> updateCategory(Category category);
+        public void deleteCategory(int id);
+        public Task<int> countCategories();
+    }
 }
