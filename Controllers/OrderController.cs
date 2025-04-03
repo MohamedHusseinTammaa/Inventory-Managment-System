@@ -2,62 +2,100 @@
 using Inventory_Managment_System.Models.Classes;
 using Inventory_Managment_System.Services;
 using Inventory_Managment_System.Interfaces;
+using Inventory_Managment_System.UnitOfWork;
 
 namespace Inventory_Managment_System.Controllers
 {
     public class OrderController : Controller
     {
 
-        private readonly Iorder _order;
-        public OrderController(Iorder order)
+        private readonly IOrder _Order;
+        private readonly IProduct _Product;
+        private readonly ICustomer _Customer;
+        private readonly IOrderDetails _orderDetails;
+        public OrderController(IOrder Order, IProduct product, ICustomer customer, IOrderDetails orderDetails)
         {
-            _order = order;
+            _Order = Order;
+            _Customer = customer;
+            _Product = product;
+            _orderDetails = orderDetails;
         }
 
-        public IActionResult GetAllOrders()
+        public async Task<IActionResult> GetAllOrders()
         {
-            var orders = _order.GetAllOrders();
-            return View();
+            var Orders = _Order.GetAllOrders();
+            var list=Orders.Result.ToList();
+            return View(list);
         }
 
         [HttpGet]
         public IActionResult CreateOrder()
         {
-            return View();
+            var model = new Order
+            {
+                OrderDate = DateTime.Now,
+                OrderDetails = new List<OrderDetails>()
+            };
+            ViewData["Products"] =  _Product.getAllProducts().Result;
+            ViewData["Customers"] =  _Customer.GetAllCustomers().Result;
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult CreateOrder(order order)
+        public IActionResult CreateOrder(Order Order)
         {
-            if (ModelState.IsValid)
+            
+            if (Order.OrderDate>DateTime.Today && Order.CustomerId != 0)
             {
-                _order.AddOrderAsync(order);
-                return RedirectToAction("GetAllOrders");
+                bool orderAdd = false;
+                Order.CalculateTotalAmount();
+                List<OrderDetails> orderDetails = Order.OrderDetails;
+                foreach (OrderDetails item in orderDetails)
+                {
+                    if (item.ProductId == 0 || item.Quantity <= 0 || item.Price <= 0)
+                    {
+                        return RedirectToAction("CreateOrder");
+                    }
+                    item.CalculateFinalPrice();
+                    if (!orderAdd)
+                    {
+                        _Order.AddOrderAsync(Order);
+                        orderAdd = true;
+                    }
+                    item.orderId = Order.Id;
+                    _orderDetails.AddOrderDetailsAsync(item);
+                }
             }
-            return View(order);
+            else
+            {
+                return Content("shit!");
+            }
+            
+            return RedirectToAction("GetAllOrders");
+            
         }
 
         [HttpGet]
         public IActionResult EditOrder(int id)
         {
-            var order = _order.GetOrderById(id);
-            return View(order);
+            var Order = _Order.GetOrderById(id);
+            return View(Order);
         }
 
         [HttpPost]
-        public IActionResult EditOrder(order order)
+        public IActionResult EditOrder(Order Order)
         {
             if (ModelState.IsValid)
             {
-                _order.UpdateOrder(order);
+                _Order.UpdateOrder(Order);
                 return RedirectToAction("GetAllOrders");
             }
-            return View(order);
+            return View(Order);
         }
 
         public IActionResult DeleteOrder(int id)
         {
-            _order.DeleteOrder(id);
+            _Order.DeleteOrder(id);
             return RedirectToAction("GetAllOrders");
         }
     }

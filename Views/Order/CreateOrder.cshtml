@@ -1,0 +1,123 @@
+﻿@using Inventory_Managment_System.Models.Classes
+@model Inventory_Managment_System.Models.Classes.Order
+
+<div class="container mt-4">
+    <h2 class="mb-4">Create Order</h2>
+
+    <form asp-action="CreateOrder" method="post">
+        <div class="mb-3">
+            <label class="form-label">Order Date:</label>
+            <input asp-for="OrderDate" class="form-control" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Select Customer:</label>
+            <select asp-for="CustomerId" class="form-select">
+                <option value="">Select Customer</option>
+                @foreach (Customer customer in ViewBag.Customers)
+                {
+                    <option value="@customer.Id">@customer.name</option>
+                }
+            </select>
+        </div>
+
+        <hr />
+
+        <h4 class="mb-3">Order Details</h4>
+
+        <div id="orderDetails">
+            @for (var i = 0; i < Model.OrderDetails.Count; i++)
+            {
+                <div class="order-detail-item row g-2 align-items-center mb-3">
+                    <div class="col-md-4">
+                        <select asp-for="OrderDetails[i].ProductId" class="form-select" onchange="updatePrice(this, @i)">
+                            <option value="">Select Product</option>
+                            @foreach (var product in ViewBag.Products)
+                            {
+                                <option value="@product.Id">@product.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="OrderDetails[i].Price" class="form-control" placeholder="Price" readonly />
+                    </div>
+                    <div class="col-md-3">
+                        <input asp-for="OrderDetails[i].Quantity" class="form-control" placeholder="Quantity" />
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-danger w-100" onclick="removeOrderDetail(this)">Remove</button>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="mt-3">
+            <button type="button" class="btn btn-primary" onclick="addOrderDetail()">➕ Add Product</button>
+        </div>
+
+        <br />
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success w-100">✅ Create Order</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        let productList = @Html.Raw(Json.Serialize(ViewBag.Products));
+
+        function addOrderDetail() {
+            let orderDetailsContainer = document.getElementById('orderDetails');
+            let newIndex = orderDetailsContainer.children.length; // Ensure continuous indexing
+
+            let html = `
+                        <div class="order-detail-item row g-2 align-items-center mb-3">
+                            <div class="col-md-4">
+                                <select name="OrderDetails[${newIndex}].ProductId" class="form-select" onchange="updatePrice(this, ${newIndex})">
+                                    <option value="">Select Product</option>
+                                    ${productList.map(p => `<option value="${p.id}">${p.name}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <input name="OrderDetails[${newIndex}].Price" class="form-control" placeholder="Price" readonly />
+                            </div>
+                            <div class="col-md-3">
+                                <input name="OrderDetails[${newIndex}].Quantity" class="form-control" placeholder="Quantity" />
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-danger w-100" onclick="removeOrderDetail(this)">Remove</button>
+                            </div>
+                        </div>
+                    `;
+            orderDetailsContainer.insertAdjacentHTML('beforeend', html);
+        }
+
+        function removeOrderDetail(button) {
+            button.closest('.order-detail-item').remove();
+            updateIndices(); // Ensure correct numbering after removal
+        }
+
+        function updateIndices() {
+            let orderDetails = document.querySelectorAll('.order-detail-item');
+            orderDetails.forEach((item, index) => {
+                item.querySelector('select').name = `OrderDetails[${index}].ProductId`;
+                item.querySelector('input[placeholder="Price"]').name = `OrderDetails[${index}].Price`;
+                item.querySelector('input[placeholder="Quantity"]').name = `OrderDetails[${index}].Quantity`;
+            });
+
+        }
+        function updatePrice(select, index) {
+            let selectedProduct = productList.find(p => p.id == select.value);
+
+            if (selectedProduct) {
+                let parent = select.closest('.order-detail-item');
+                let priceInput = parent.querySelector(`input[name="OrderDetails[${index}].Price"]`);
+
+                if (priceInput) {
+                    priceInput.value = selectedProduct.price; // Ensure this matches your model's property name
+                }
+            }
+        }
+    </script>
+}

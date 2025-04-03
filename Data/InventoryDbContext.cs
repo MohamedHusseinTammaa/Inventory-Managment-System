@@ -8,7 +8,7 @@ namespace Inventory_Managment_System.Data
         { 
 
         }    
-        public DbSet<order> orders { get; set; }
+        public DbSet<Order> orders { get; set; }
         public object Orders { get; internal set; }
         public DbSet<Product> products { get; set; }
         public DbSet<Supplier> suppliers { get; set; }
@@ -16,7 +16,7 @@ namespace Inventory_Managment_System.Data
         public DbSet<PurchaseDetails> PurchaseDetails { get; set; }
         public DbSet<Purchase> purchases { get; set; }
         public DbSet<Brand> brands { get; set; }
-        public DbSet<orderDetails> orderDetails { get; set; }
+        public DbSet<OrderDetails> orderDetails { get; set; }
         public DbSet<Customer> customers { get; set; }
 
 

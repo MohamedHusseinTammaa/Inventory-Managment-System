@@ -10,20 +10,20 @@ namespace Inventory_Managment_System.Controllers
     {
         private readonly IProduct _productService;
         private readonly ISupplier _supplierService;
-        private readonly Iorder _orderService;
+        private readonly IOrder _OrderService;
 
-        public HomeController(IProduct productService, ISupplier supplierService, Iorder orderService)
+        public HomeController(IProduct productService, ISupplier supplierService, IOrder OrderService)
         {
             _productService = productService;
             _supplierService = supplierService;
-            _orderService = orderService;
+            _OrderService = OrderService;
         }
 
         public IActionResult Index()
         {
             ViewBag.TotalProducts = _productService.CountProducts().Result;
             ViewBag.TotalSuppliers = _supplierService.CountAllSuppliers().Result;
-            ViewBag.TotalOrders = _orderService.CountAllOrders().Result;
+            ViewBag.TotalOrders = _OrderService.CountAllOrders().Result;
 
             return View();
         }

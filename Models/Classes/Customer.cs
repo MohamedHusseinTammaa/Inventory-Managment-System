@@ -23,7 +23,7 @@ namespace Inventory_Managment_System.Models.Classes
         public DateTime UpdatedAt { get; set; }
 
         // Navigation property
-        public ICollection<order> orders { get; set; }
+        public ICollection<Order> orders { get; set; }
     }
 
 }

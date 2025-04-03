@@ -13,59 +13,66 @@ using System.Linq;
 
 namespace Inventory_Managment_System.Services
 {
-    public class orderService : Iorder
+    public class OrderService : IOrder
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public orderService(IUnitOfWork unitOfWork)
+        public OrderService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<order> AddOrderAsync(order order)
+        public async Task<Order> AddOrderAsync(Order Order)
         {
-            if (order == null)
+            if (Order == null)
             {
-                throw new ArgumentNullException(nameof(order));
+                throw new ArgumentNullException(nameof(Order));
             }
-            _unitOfWork.Repository<order>().add(order);
+            await _unitOfWork.Repository<Order>().addAsync(Order);
             await _unitOfWork.CompleteAsync();
-            return order;
+            return Order;
         }
 
-        public void CalculateTotalAmount(List<Models.Classes.orderDetails> list)
+        public void CalculateTotalAmount(List<Models.Classes.OrderDetails> list)
         {
             throw new NotImplementedException();
         }
 
         public async Task<int> CountAllOrders()
         {
-            return await _unitOfWork.Repository<order>().countAllAsync();
+            return await _unitOfWork.Repository<Order>().countAllAsync();
         }
         public void DeleteOrder(int id)
         {
-            _unitOfWork.Repository<order>().delete(id);
+            _unitOfWork.Repository<Order>().delete(id);
             _unitOfWork.Complete();
         }
 
-        public async Task <IEnumerable<order>> GetAllOrders()
+        public async Task <IEnumerable<Order>> GetAllOrders()
         {
-            var orders = await _unitOfWork.Repository<order>().getAllAsync();
-            return orders;
+            var Orders = await _unitOfWork.Repository<Order>().getAllAsync();
+            foreach (var o in Orders) {
+                //var OrderDetails = await _unitOfWork.Repository<OrderDetails>().findAllAsync(p => p.orderId == o.Id, 1000, 0);
+                //List<OrderDetails> Items = OrderDetails.ToList(); 
+                var customer =  _unitOfWork.Repository<Customer>().getByID(o.CustomerId);
+                o.Customer=customer;
+                //o.OrderDetails = Items;
+            }
+            return Orders;
         }
 
-        public order GetOrderById(int id)
+        public Order GetOrderById(int id)
         {
-            return _unitOfWork.Repository<order>().getByID(id);
+            return _unitOfWork.Repository<Order>().getByID(id);
         }
 
-        public IEnumerable<order> getOrdersByName(string name)
+        public IEnumerable<Order> getOrdersByName(string name)
         {
-            return _unitOfWork.Repository<order>().getByName(name);
+            return _unitOfWork.Repository<Order>().getByName(name);
         }
 
-        public void UpdateOrder(order order)
+        public void UpdateOrder(Order Order)
         {
-           _unitOfWork.Repository<order>().update(order,order.Id);
+           _unitOfWork.Repository<Order>().update(Order,Order.Id);
         }
     }
 }
