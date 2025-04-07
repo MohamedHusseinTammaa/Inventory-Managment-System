@@ -9,7 +9,6 @@ namespace Inventory_Managment_System.Data
 
         }    
         public DbSet<Order> orders { get; set; }
-        public object Orders { get; internal set; }
         public DbSet<Product> products { get; set; }
         public DbSet<Supplier> suppliers { get; set; }
         public DbSet<Category> categories { get; set; }
