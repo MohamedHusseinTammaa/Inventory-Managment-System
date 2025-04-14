@@ -2,7 +2,7 @@
 
 A web-based inventory management system designed to help businesses efficiently manage products, orders, and stock levels.
 
-## 🚀 Features
+##  Features
 
 - ✅ **Product Management**
   - Add, edit, delete products
@@ -18,25 +18,25 @@ A web-based inventory management system designed to help businesses efficiently 
   - Functionality to manage incoming stock from suppliers
   - Will include purchase order creation and stock updates
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Backend:** ASP.NET Core with Entity Framework
 - **Frontend:** ASP.NET MVC
 - **Database:** Microsoft SQL Server
 
-## 🔐 Authentication
+## Authentication
 
 - Secure login system for authorized access
 - Role-based user access (planned)
 
-## 📁 Project Structure
+## Project Structure
 
 - `Controllers/` - Handles logic for products, orders, and future purchases
 - `Models/` - Entity classes for database structure
 - `Views/` - Razor pages for UI
 - `Data/` - DB context and migrations
 
-## 🧪 How to Run Locally
+## How to Run Locally
 
 1. Clone the repository:
    ```bash
