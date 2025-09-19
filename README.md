@@ -5,7 +5,7 @@ A web-based inventory management system designed to help businesses efficiently 
 ##  Features
 
 - ✅ **Product Management**
-  - Add, edit, delete products
+  - Add, edit, delete products,change
   - View product listings with details
   - Track stock quantity
 
